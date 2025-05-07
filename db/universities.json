@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Massachusetts Institute of Technology",
+    "country": "USA",
+    "min_cgpa": 3.7,
+    "majors": ["Computer Science", "AI", "Data Science", "Mathematics"]
+  },
+  {
+    "name": "University of Tokyo",
+    "country": "Japan",
+    "min_cgpa": 3.0,
+    "majors": ["Electronics", "Robotics", "Computer Science"]
+  },
+  {
+    "name": "University of Cambridge",
+    "country": "UK",
+    "min_cgpa": 3.5,
+    "majors": ["Physics", "Mathematics", "Computer Science"]
+  },
+  {
+    "name": "National University of Singapore",
+    "country": "Singapore",
+    "min_cgpa": 3.4,
+    "majors": ["AI", "Data Science", "Computer Engineering"]
+  },
+  {
+    "name": "Kathmandu University",
+    "country": "Nepal",
+    "min_cgpa": 2.5,
+    "majors": ["Electronics", "Computer Science", "Information Technology"]
+  }
+]

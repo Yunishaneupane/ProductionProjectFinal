@@ -1,0 +1,3 @@
+{
+    "error": "PDF to image conversion failed: Unable to get page count. Is poppler installed and in PATH?"
+}

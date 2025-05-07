@@ -1,0 +1,28 @@
+[
+    {
+      "field_id": 1,
+      "name": "Computer Science",
+      "description": "Focus on programming, AI, software development, and data systems."
+    },
+    {
+      "field_id": 2,
+      "name": "Business & Management",
+      "description": "Covers economics, marketing, entrepreneurship, and global management."
+    },
+    { 
+      "field_id": 3,
+      "name": "Engineering",
+      "description": "Includes civil, electrical, mechanical, and software engineering."
+    },
+    {
+      "field_id": 4,
+      "name": "Health & Medicine",
+      "description": "Medical sciences, nursing, biomedical research, and public health."
+    },
+    {
+      "field_id": 5,
+      "name": "Arts & Humanities",
+      "description": "Philosophy, literature, history, and cultural studies."
+    }
+  ]
+  

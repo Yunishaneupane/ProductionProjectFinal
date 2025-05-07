@@ -1,0 +1,206 @@
+git remote -v/* === For Institutions Page === */
+
+.institutions-hero {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4rem 5%;
+    background-color: #f3f4f6;
+    flex-wrap: wrap;
+  }
+  
+  .institutions-left {
+    width: 50%;
+  }
+  
+  .breadcrumb {
+    background: white;
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 2rem;
+  }
+  
+  .breadcrumb span {
+    font-weight: 600;
+  }
+  
+  .institutions-left h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    margin-bottom: 2rem;
+  }
+  
+  .institutions-left p {
+    font-size: 1.1rem;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .cta-btn {
+    display: inline-block;
+    padding: 0.9rem 1.5rem;
+    background-color: #0044d4;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+  
+  .cta-btn:hover {
+    background-color: #0032a4;
+  }
+  
+  .institutions-right {
+    width: 45%;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .institutions-right img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0;
+  }
+  
+  .ribbon-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  .ribbon {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    transform: rotate(-45deg);
+    opacity: 0.5;
+  }
+  
+  .ribbon.red {
+    background: linear-gradient(to right, #ff5e3a, #ff9a3a);
+    top: -50%;
+    left: -60%;
+  }
+  
+  .ribbon.blue {
+    background: linear-gradient(to right, #0056d2, #4facfe);
+    top: -20%;
+    left: -40%;
+  }
+  
+  /* === Responsive === */
+  @media (max-width: 768px) {
+    .institutions-hero {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .institutions-left,
+    .institutions-right {
+      width: 100%;
+    }
+  
+    .institutions-left h1 {
+      font-size: 2.2rem;
+      color: black;
+    }
+  
+    .institutions-left p {
+      font-size: 1rem;
+    }
+  
+    .breadcrumb {
+      margin: 0 auto 2rem;
+    }
+  }
+
+  /* === Institution Services Section === */
+.institution-services {
+    display: flex;
+    gap: 2rem;
+    padding: 4rem 5%;
+    background: #fff;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .service-card {
+    background: #f3f4f6;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+    flex: 1 1 30%;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+  }
+  
+  .service-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .service-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .service-content {
+    padding: 1.5rem;
+  }
+  
+  .service-content h3 {
+    color: #0044d4;
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .service-content p {
+    font-size: 1rem;
+    color: #444;
+    margin-bottom: 1.2rem;
+    line-height: 1.6;
+  }
+  
+  .service-content a {
+    color: #0044d4;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  .service-card.highlighted {
+    background-color: #0056d2;
+    color: white;
+  }
+  
+  .service-card.highlighted h3,
+  .service-card.highlighted a {
+    color: #ffffff;
+  }
+  
+  .service-card.highlighted p {
+    color: #e6e6e6;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .institution-services {
+      flex-direction: column;
+    }
+  
+    .service-card {
+      width: 100%;
+    }
+  }
+  
+  

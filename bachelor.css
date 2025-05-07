@@ -1,0 +1,262 @@
+.bachelor-hero {
+    text-align: center;
+    padding: 100px 20px 80px;
+    background: url("images/finduni.jpg") center/cover no-repeat;
+    color: white;
+    position: relative;
+  }
+  
+  .bachelor-hero::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* dark overlay for better contrast */
+    z-index: 0;
+  }
+  
+  .bachelor-hero h1,
+  .bachelor-hero p,
+  .bachelor-search {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .bachelor-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .bachelor-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .bachelor-search {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .bachelor-search input {
+    padding: 10px 15px;
+    font-size: 1rem;
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .bachelor-search button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #120847;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .bachelor-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #fff;
+  }
+  
+  .step {
+    width: 220px;
+    margin-bottom: 40px;
+    transition: transform 0.3s;
+  }
+  
+  .step:hover {
+    transform: scale(1.05);
+  }
+  
+  .step img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 15px;
+  }
+  
+  .step h3 {
+    font-size: 1.3rem;
+    color: #002b5e;
+    margin-bottom: 0.5rem;
+  }
+  
+  .step p {
+    font-size: 1rem;
+    color: #333;
+  }
+  
+
+  .what-to-expect {
+    padding: 60px 20px;
+    background-color: #f3f7fc;
+    text-align: center;
+  }
+  
+  .what-to-expect h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #1a1a1a;
+  }
+  
+  .expect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .expect-card {
+    background-color: #fff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    text-align: left;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  }
+  
+  .expect-card:hover {
+    background-color: #eef3f8;
+  }
+  
+  .expect-icon {
+    background-color: #fff5d7;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-bottom: 15px;
+  }
+  
+  .expect-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #222;
+  }
+  
+  .expect-card p {
+    font-size: 1rem;
+    color: #444;
+    line-height: 1.5;
+  }
+  
+
+  
+  /* .university-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 20px auto;
+    max-width: 1000px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  } */
+  
+  .card-header {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  
+  .college-img {
+    width: 150px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .college-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #004080;
+  }
+  
+  .college-info p {
+    margin: 5px 0 0;
+    color: #444;
+    font-size: 0.95rem;
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .view-btn,
+  .programs-btn {
+    background-color: #004080;
+    color: #fff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  
+  .programs-btn {
+    background-color: #fff;
+    border: 2px solid #004080;
+    color: #004080;
+  }
+  
+  .card-actions {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .contact-btn,
+  .wishlist-btn {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    color: #004080;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .contact-btn:hover,
+  .wishlist-btn:hover {
+    text-decoration: underline;
+  }
+  
+  .university-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 2rem;
+    justify-items: center;
+  }
+  
+  .university-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 100%;
+    max-width: 508px;
+    transition: transform 0.3s ease;
+  }
+  
+  .university-card:hover {
+    transform: translateY(-5px);
+  }
+  

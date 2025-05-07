@@ -1,0 +1,163 @@
+[
+
+    {
+      "university_id": 1,
+      "name": "Harvard University",
+      "country": "USA",
+      "ranking": 1,
+      "details": "Offers comprehensive undergraduate education with top-tier faculty and research access.",
+      "image_url": "https://t3.ftcdn.net/jpg/04/91/76/62/360_F_491766294_h4j7LbW2YgfbNHhq7F8GboIc1XyBSEY5.jpg",
+      "category": {
+        "category_id": 1,
+        "name": "Bachelor's",
+        "description": "Undergraduate programs across liberal arts, science, and engineering."
+      }
+    },
+    {
+      "university_id": 2,
+      "name": "University of Oxford",
+      "country": "UK",
+      "ranking": 2,
+      "details": "Known for personalized tutorials and a broad curriculum.",
+      "image_url": "https://img.freepik.com/premium-vector/education-badge-logo-design-university-high-school-emblem-vector-logo-template_441059-500.jpg?semt=ais_hybrid&w=740",
+      "category": {
+        "category_id": 1,
+        "name": "Bachelor's",
+        "description": "Focus on interdisciplinary undergraduate programs with global recognition."
+      }
+    },
+    {
+      "university_id": 3,
+      "name": "University of Melbourne",
+      "country": "Australia",
+      "ranking": 3,
+      "details": "Highly ranked for its flexible undergraduate model and global focus.",
+      "image_url": "https://img.freepik.com/premium-vector/education-badge-logo-design-university-high-school-emblem-vector-logo-template_441059-500.jpg?semt=ais_hybrid&w=740",
+      "category": {
+        "category_id": 1,
+        "name": "Bachelor's",
+        "description": "Majors in commerce, design, health sciences, and engineering."
+      }
+    },
+    {
+      "university_id": 4,
+      "name": "National University of Singapore",
+      "country": "Singapore",
+      "ranking": 4,
+      "details": "Asia’s top university with strong undergraduate programs in computing and business.",
+      "image_url": "https://previews.123rf.com/images/captainvector/captainvector1703/captainvector170308068/74349192-university-logo-element.jpg",
+      "category": {
+        "category_id": 1,
+        "name": "Bachelor's",
+        "description": "Undergraduate degrees with a focus on technology and innovation."
+      }
+    },
+  
+  
+    {
+      "university_id": 5,
+      "name": "Stanford University",
+      "country": "USA",
+      "ranking": 1,
+      "details": "Leader in graduate programs and research-driven Master’s education.",
+      "image_url": "https://previews.123rf.com/images/captainvector/captainvector1703/captainvector170308068/74349192-university-logo-element.jpg",
+      "category": {
+        "category_id": 2,
+        "name": "Master's",
+        "description": "Graduate programs in computer science, business, and education."
+      }
+    },
+    {
+      "university_id": 6,
+      "name": "University of Cambridge",
+      "country": "UK",
+      "ranking": 2,
+      "details": "Rich academic heritage with strong graduate coursework programs.",
+      "image_url": "https://www.adelaide.edu.au/brand/sites/default/files/media/editor-images/2021-07/uoa-logo-clear-space.jpg",
+      "category": {
+        "category_id": 2,
+        "name": "Master's",
+        "description": "Master's degrees in literature, science, and economics."
+      }
+    },
+    {
+      "university_id": 7,
+      "name": "Australian National University (ANU)",
+      "country": "Australia",
+      "ranking": 3,
+      "details": "Graduate school with strong policy and environmental programs.",
+      "image_url": "https://www.adelaide.edu.au/brand/sites/default/files/media/editor-images/2021-07/uoa-logo-clear-space.jpg",
+      "category": {
+        "category_id": 2,
+        "name": "Master's",
+        "description": "Applied and research-based Master’s across disciplines."
+      }
+    },
+    {
+      "university_id": 8,
+      "name": "ETH Zurich",
+      "country": "Switzerland",
+      "ranking": 4,
+      "details": "Top European university for engineering and applied sciences.",
+      "image_url": "https://t3.ftcdn.net/jpg/04/91/76/62/360_F_491766294_h4j7LbW2YgfbNHhq7F8GboIc1XyBSEY5.jpg",
+      "category": {
+        "category_id": 2,
+        "name": "Master's",
+        "description": "Advanced Master’s degrees in science, robotics, and analytics."
+      }
+    },
+
+    {
+      "university_id": 9,
+      "name": "Massachusetts Institute of Technology (MIT)",
+      "country": "USA",
+      "ranking": 1,
+      "details": "Leader in research with funding and labs for deep PhD work.",
+      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBTDKZxyak54IwjO9yTNPADglpsTq6UGxxfA&s",
+      "category": {
+        "category_id": 3,
+        "name": "PhD",
+        "description": "Doctorate degrees in AI, engineering, and computational sciences."
+      }
+    },
+    {
+      "university_id": 10,
+      "name": "Imperial College London",
+      "country": "UK",
+      "ranking": 2,
+      "details": "Renowned for STEM-focused research and innovation.",
+      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBTDKZxyak54IwjO9yTNPADglpsTq6UGxxfA&s",
+      "category": {
+        "category_id": 3,
+        "name": "PhD",
+        "description": "Research-intensive PhDs in medical, energy, and computer sciences."
+      }
+    },
+    {
+      "university_id": 11,
+      "name": "University of Sydney",
+      "country": "Australia",
+      "ranking": 3,
+      "details": "Offers strong PhD supervision and cross-disciplinary collaboration.",
+      "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBTDKZxyak54IwjO9yTNPADglpsTq6UGxxfA&s",
+      "category": {
+        "category_id": 3,
+        "name": "PhD",
+        "description": "Doctoral research in health sciences, law, and humanities."
+      }
+    },
+    {
+      "university_id": 12,
+      "name": "University of Edinburgh",
+      "country": "UK",
+      "ranking": 4,
+      "details": "Highly respected for research across AI, informatics, and medicine.",
+      "image_url": "https://bcassetcdn.com/public/blog/wp-content/uploads/2023/10/24131516/HEADER-Harvard-University-Logo-History.jpg",
+      "category": {
+        "category_id": 3,
+        "name": "PhD",
+        "description": "Structured PhD programs with world-class advisors and facilities."
+      }
+    }
+  ]
+  
