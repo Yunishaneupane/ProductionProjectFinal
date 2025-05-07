@@ -15,34 +15,24 @@
 <section class="students-hero">
   <div class="students-overlay">
     <div class="students-inner">
-
       <div class="students-searchbox">
-        <select>
-          <option><b>Study level</b></option>
-          <option>Bachelor</option>
-          <option>Master</option>
-          <option>PhD</option>
+        <select id="level">
+          <option disabled selected><b>Study level</b></option>
         </select>
-        <select>
-          <option><b>Study destination</b></option>
-          <option>USA</option>
-          <option>UK</option>
-          <option>Canada</option>
+        <select id="destination">
+          <option disabled selected><b>Study destination</b></option>
         </select>
-        <select>
-          <option><b>Subject</b></option>
-          <option>Computer Science</option>
-          <option>Engineering</option>
-          <option>Business</option>
+        <select id="subject">
+          <option disabled selected><b>Subject</b></option>
         </select>
-        <button class="search-btn">
-  <i class="fas fa-search"></i>&nbsp;Search
-</button>
-
+        <button id="students-search-btn" class="search-btn">
+          <i class="fas fa-search"></i>&nbsp;Search
+        </button>
       </div>
     </div>
   </div>
 </section>
+
 
 
 
@@ -162,4 +152,69 @@
 <?php include 'footer.php'; ?>
 </body>
 </html>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const levelSelect = document.getElementById("level");
+  const destinationSelect = document.getElementById("destination");
+  const subjectSelect = document.getElementById("subject");
+  const searchBtn = document.getElementById("students-search-btn");
 
+  // Manually load study levels
+  const studyLevels = ["Bachelor's", "Master's", "PhD"];
+  levelSelect.innerHTML = '<option disabled selected>Select Study Level</option>';
+  studyLevels.forEach(level => {
+    levelSelect.innerHTML += `<option value="${level}">${level}</option>`;
+  });
+
+  // Load destinations dynamically
+  fetch('data.json')
+    .then(res => res.json())
+    .then(universities => {
+      const countries = [...new Set(universities.map(u => u.country))];
+      destinationSelect.innerHTML = '<option disabled selected>Select Destination</option>';
+      countries.forEach(country => {
+        destinationSelect.innerHTML += `<option value="${country}">${country}</option>`;
+      });
+    });
+
+  // Load subjects dynamically
+  fetch('fields.json')
+    .then(res => res.json())
+    .then(fields => {
+      subjectSelect.innerHTML = '<option disabled selected>Select Subject</option>';
+      fields.forEach(field => {
+        subjectSelect.innerHTML += `<option value="${field.name}">${field.name}</option>`;
+      });
+    });
+
+  // Handle button click
+  searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    fetch('check_login.php')
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn) {
+          const selectedLevel = levelSelect.value;
+          const selectedDestination = destinationSelect.value;
+          const selectedSubject = subjectSelect.value;
+
+          let redirectPage = "";
+          if (selectedLevel === "Bachelor's") redirectPage = "bachelor_data.php";
+          else if (selectedLevel === "Master's") redirectPage = "master_data.php";
+          else if (selectedLevel === "PhD") redirectPage = "phd_data.php";
+
+          if (redirectPage && selectedDestination && selectedSubject) {
+            window.location.href = `${redirectPage}?destination=${encodeURIComponent(selectedDestination)}&subject=${encodeURIComponent(selectedSubject)}`;
+          } else {
+            alert("⚠️ Please select Study Level, Destination, and Subject.");
+          }
+        } else {
+          alert("⚠️ You must be logged in to search!");
+          window.location.href = "login.php";
+        }
+      })
+      .catch(err => console.error("Login check failed:", err));
+  });
+});
+</script>
