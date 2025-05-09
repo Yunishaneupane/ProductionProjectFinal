@@ -59,25 +59,30 @@ $userName = $isLoggedIn ? $_SESSION["user"]["name"] : '';
     <button class="wishlist-close" onclick="toggleWishlist()">✕</button>
   </div>
 
-  <div class="wishlist-content">
-    <?php if (!empty($_SESSION["wishlist"])): ?>
-      <?php foreach ($_SESSION["wishlist"] as $item): ?>
-        <div class="wishlist-item">
-          <h3><?= htmlspecialchars($item["name"]) ?></h3>
-          <p><strong><?= htmlspecialchars($item["country"]) ?></strong></p>
-          <img src="<?= htmlspecialchars($item["image_url"]) ?>" alt="<?= htmlspecialchars($item["name"]) ?> Logo" class="wishlist-logo">
-        </div>
-      <?php endforeach; ?>
-    <?php else: ?>
-      <p style="padding: 1rem;color: black;">Your wishlist is empty.</p>
-    <?php endif; ?>
-  </div>
+<div class="wishlist-content" id="wishlistContent">
+  <p>Loading wishlist...</p>
+</div>
+
 </div>
 
   <script>
-    function toggleWishlist() {
-      document.getElementById("wishlistPanel").classList.toggle("open");
-    }
+ function toggleWishlist() {
+  const panel = document.getElementById("wishlistPanel");
+  panel.classList.toggle("open");
+
+  // Fetch updated wishlist when opening
+  if (panel.classList.contains("open")) {
+    fetch('wishlist_fetch.php')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("wishlistContent").innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById("wishlistContent").innerHTML = "<p>Error loading wishlist.</p>";
+        console.error(err);
+      });
+  }
+}
 
     window.addEventListener("scroll", () => {
       const header = document.querySelector(".header");
@@ -108,12 +113,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(data => {
         console.log(data); // for debug
 
-        // After successful add, reload the wishlist panel
-        fetch('wishlist_fetch.php')
-          .then(response => response.text())
-          .then(html => {
-            document.querySelector('.wishlist-content').innerHTML = html;
-          });
+       
       })
       .catch(error => {
         console.error('Error:', error);
@@ -122,4 +122,30 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+document.addEventListener("click", function (e) {
+  if (e.target.classList.contains("remove-wishlist-btn")) {
+    const id = e.target.getAttribute("data-id");
+
+    fetch('remove_from_wishlist.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `id=${encodeURIComponent(id)}`
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log("Remove response:", data);
+      // Reload wishlist
+      fetch('wishlist_fetch.php')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById("wishlistContent").innerHTML = html;
+        });
+    })
+    .catch(err => {
+      alert("Failed to remove item");
+      console.error(err);
+    });
+  }
+});
+
 </script>

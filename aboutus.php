@@ -14,6 +14,53 @@
  
 include 'header.php'; 
 ?>
+<?php
+
+$recommendations = [];
+$error = "";
+$transcriptUploaded = false;
+
+
+// Handle transcript upload
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['transcript']) && $_FILES['transcript']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = "uploads/";
+    if (!is_dir($uploadDir)) mkdir($uploadDir);
+
+    $fileName = "transcript_" . time() . "_" . basename($_FILES["transcript"]["name"]);
+    $targetFile = $uploadDir . $fileName;
+
+    if (move_uploaded_file($_FILES["transcript"]["tmp_name"], $targetFile)) {
+        // Simulate extraction
+        $_SESSION['cgpa'] = 3.5;
+        $_SESSION['major'] = "Computer Science";
+        $_SESSION['transcript_uploaded'] = true;
+
+        header("Location: " . $_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        $error = "❌ Failed to upload transcript.";
+    }
+}
+
+// ✅ Now process recommendations *after redirect* (this should come after the upload block)
+if (isset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'], $_SESSION['major'])) {
+  $transcriptUploaded = true; // ✅ Set this flag
+  $cgpa = $_SESSION['cgpa'];
+  $major = $_SESSION['major'];
+
+  $universityData = json_decode(file_get_contents("data.json"), true);
+  foreach ($universityData as $uni) {
+      if (isset($uni['min_cgpa'], $uni['majors']) && $cgpa >= $uni['min_cgpa'] && in_array($major, $uni['majors'])) {
+          $recommendations[] = $uni;
+      }
+  }
+
+  unset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'], $_SESSION['major']);
+}
+
+?>
+
+
 
 
 
@@ -47,6 +94,30 @@ include 'header.php';
 </section>
 
 <!-- ---------------------------------- -->
+<?php if ($transcriptUploaded && !empty($recommendations)): ?>
+  <section class="recommended-universities" style="margin-top: 2rem; text-align:center;">
+    <h3>🎓 Recommended Universities Based on Your Transcript</h3>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; padding: 1rem;">
+      <?php foreach ($recommendations as $uni): ?>
+        <div style="background: #f9f9f9; border: 1px solid #ccc; border-radius: 10px; padding: 1rem; width: 300px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; color: black;">
+          <img src="<?= htmlspecialchars($uni['image_url']) ?>" alt="<?= htmlspecialchars($uni['name']) ?>" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px 10px 0 0;">
+          <h4 style="color:#000000; margin-top:10px;"><?= htmlspecialchars($uni['name']) ?></h4>
+          <p><strong>Country:</strong> <?= htmlspecialchars($uni['country']) ?></p>
+          <p><strong>Min CGPA:</strong> <?= $uni['min_cgpa'] ?></p>
+          <p><strong>Majors:</strong> <?= implode(', ', $uni['majors']) ?></p>
+          <a class="programs-btn" href="programs.php?id=<?= $uni['university_id'] ?>">View Programs</a>
+
+         </div>
+      <?php endforeach; ?>
+    </div>
+  </section>
+<?php elseif ($transcriptUploaded && empty($recommendations)): ?>
+  <p style="text-align: center; color: #b00; margin-top: 1rem;">❌ No matching universities found for your transcript.</p>
+<?php endif; ?>
+
+    </div>
+  </section>
+
 
 <section class="ranking-cards-container">
   <div class="ranking-card">

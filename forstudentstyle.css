@@ -3,7 +3,6 @@
 .students-hero {
   background: url("images/students.jpg") center/cover no-repeat;
   height: 80vh;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;

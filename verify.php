@@ -8,14 +8,15 @@ if (!isset($_SESSION['signup'])) {
 }
 
 $signup = $_SESSION['signup'];
+$university_id = $signup['university_id'] ?? null;
+
 $success = $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $input_otp = implode("", $_POST["otp"]);
-
     if ($input_otp == $signup['otp']) {
-        $stmt = $conn->prepare("INSERT INTO Users (name, email, password, role, registered_date) VALUES (?, ?, ?, ?, NOW())");
-        $stmt->bind_param("ssss", $signup["name"], $signup["email"], $signup["password"], $signup["role"]);
+        $stmt = $conn->prepare("INSERT INTO Users (name, email, password, role, university_id, registered_date) VALUES (?, ?, ?, ?, ?, NOW())");
+        $stmt->bind_param("ssssi", $signup["name"], $signup["email"], $signup["password"], $signup["role"], $university_id);
 
         if ($stmt->execute()) {
             unset($_SESSION["signup"]);
@@ -130,12 +131,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <button type="submit">Verify OTP</button>
     </form>
     <?php endif; ?>
-
   </div>
 
   <div class="right-panel">
     <h2>Hello, Friend!</h2>
-    <p>Enter the OTP sent to your email<br><?= htmlspecialchars($signup["email"]) ?></p>
+    <p>Enter the OTP sent to your email<br><strong><?= htmlspecialchars($signup["email"]) ?></strong></p>
   </div>
 </div>
 
@@ -148,7 +148,6 @@ function moveNext(current, index) {
     }
   }
 }
-// Autofocus first box
 document.querySelector('input[name="otp[]"]').focus();
 </script>
 
