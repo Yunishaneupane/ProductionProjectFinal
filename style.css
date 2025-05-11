@@ -1,0 +1,139 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+/* Header */
+header {
+    background-color: #0a0553;
+    padding: 1rem;
+    color: white;
+    text-align: center;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    margin: 10px;
+}
+
+/* Universities Info Section */
+.universities-info {
+    text-align: center;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 3rem 0;
+}
+
+.universities-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* University Card */
+.university-card {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.university-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Image */
+.university-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+/* University Name and Country */
+.university-card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #0a0553;
+    margin-bottom: 1rem;
+}
+
+.university-card p {
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Buttons */
+.apply-btn, .see-more-btn {
+    padding: 0.8rem 1.5rem;
+    background-color: #0077cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.apply-btn:hover, .see-more-btn:hover {
+    background-color: #005fa3;
+}
+
+.see-more-btn {
+    background-color: #ff5522; /* Different color for "See More" */
+    color: white;
+}
+
+.apply-btn:active, .see-more-btn:active {
+    transform: scale(0.98);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .universities-info {
+        padding: 1.5rem;
+    }
+
+    .university-card {
+        width: 250px;
+        padding: 1rem;
+    }
+
+    .universities-list {
+        gap: 1.5rem;
+    }
+
+    .university-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .university-card p {
+        font-size: 0.9rem;
+    }
+
+    .apply-btn, .see-more-btn {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+    }
+}

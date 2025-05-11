@@ -10,37 +10,35 @@
 <body>
 
 
-<?php 
- 
-include 'header.php'; 
-?>
 <?php
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+} 
 $recommendations = [];
 $error = "";
 $transcriptUploaded = false;
 
 
 // Handle transcript upload
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['transcript']) && $_FILES['transcript']['error'] === UPLOAD_ERR_OK) {
-    $uploadDir = "uploads/";
-    if (!is_dir($uploadDir)) mkdir($uploadDir);
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['transcript']) && $_FILES['transcript']['error'] === UPLOAD_ERR_OK) {
+      $uploadDir = "uploads/";
+      if (!is_dir($uploadDir)) mkdir($uploadDir);
 
-    $fileName = "transcript_" . time() . "_" . basename($_FILES["transcript"]["name"]);
-    $targetFile = $uploadDir . $fileName;
+      $fileName = "transcript_" . time() . "_" . basename($_FILES["transcript"]["name"]);
+      $targetFile = $uploadDir . $fileName;
 
-    if (move_uploaded_file($_FILES["transcript"]["tmp_name"], $targetFile)) {
-        // Simulate extraction
-        $_SESSION['cgpa'] = 3.5;
-        $_SESSION['major'] = "Computer Science";
-        $_SESSION['transcript_uploaded'] = true;
+      if (move_uploaded_file($_FILES["transcript"]["tmp_name"], $targetFile)) {
+          // Simulate extraction
+          $_SESSION['cgpa'] = 3.5;
+          $_SESSION['major'] = "Computer Science";
+          $_SESSION['transcript_uploaded'] = true;
 
-        header("Location: " . $_SERVER['PHP_SELF']);
-        exit;
-    } else {
-        $error = "❌ Failed to upload transcript.";
-    }
-}
+          header("Location: " . $_SERVER['PHP_SELF']);
+          exit;
+      } else {
+          $error = "❌ Failed to upload transcript.";
+      }
+  }
 
 // ✅ Now process recommendations *after redirect* (this should come after the upload block)
 if (isset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'], $_SESSION['major'])) {
@@ -62,9 +60,10 @@ if (isset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'], $_SESSION['major'
 
 
 
-
-
-
+<?php 
+ 
+include 'header.php'; 
+?>
 
 
 <!-- ABOUT US SECTION -->
@@ -121,21 +120,21 @@ if (isset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'], $_SESSION['major'
 
 <section class="ranking-cards-container">
   <div class="ranking-card">
-    <img src="images/aboutus2.jpg" alt="QS World Rankings 2025">
+    <img src="images/aboutus1.jpg" alt="QS World Rankings 2025">
     <h2>QS World University Rankings 2025</h2>
     <p>Discover the top-performing universities around the world</p>
     <a href="#" class="explore-btn">Explore &rarr;</a>
   </div>
 
   <div class="ranking-card">
-    <img src="images/aboutus2.jpg" alt="QS World Rankings by Subject 2025">
+    <img src="images/library.jpg" alt="QS World Rankings by Subject 2025">
     <h2>QS World University Rankings by Subject 2025</h2>
     <p>Find out which universities excel in your chosen subject</p>
     <a href="#" class="explore-btn">Explore &rarr;</a>
   </div>
 
   <div class="ranking-card">
-    <img src="images/aboutus2.jpg" alt="QS Asia Rankings 2025">
+    <img src="images/campusvisit.jpg" alt="QS Asia Rankings 2025">
     <h2>QS World University Rankings: Asia 2025</h2>
     <p>Study at one of the best universities in Asia. Explore our ranking of Asian universities.</p>
     <a href="#" class="explore-btn">Explore &rarr;</a>
@@ -144,32 +143,23 @@ if (isset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'], $_SESSION['major'
 
 
 
+<section class="info-section">
+  <div class="info-card">
+    <img src="images/grow.jpg" alt="Grow quality enrolments">
+    <h3>Grow quality enrolments</h3>
+    <p>We make education choice transparent globally, so students make well-informed decisions, not only making your job more fulfilling, but also driving retention and graduation rates.</p>
+  </div>
 
-<!-- QS SUPPORT SECTION -->
-<section class="qs-support-section">
-  <h2>How QS can support you</h2>
-  <p class="qs-subheading">
-    We're here to support you through all stages of the university journey; whether it's researching institutions, navigating admissions or submitting your application.
-  </p>
+  <div class="info-card">
+    <img src="images/diversify.jpg" alt="Diversify your student body">
+    <h3>Diversify your student body</h3>
+    <p>With a unique reach of over 51 million students from 243 countries and territories, and over 75,000 cities, we have a proven ability to drive a high share of enrolments from diversity markets and recruit for niche and less-popular fields.</p>
+  </div>
 
-  <div class="qs-timeline">
-    <div class="qs-entry">
-      <img src="images/enroll-1.png" alt="Student with laptop" />
-      <div class="qs-content">
-        <h3>Find the right course for you</h3>
-        <p>Our course matching tool features thousands of programmes and uses your personal study preferences to find the right course for you.</p>
-        <a href="/find-course" class="qs-btn">Find Your Course →</a>
-      </div>
-    </div>
-
-    <div class="qs-entry reverse">
-      <img src="images/enroll-2.png" alt="Jumping over world map" />
-      <div class="qs-content">
-        <h3>Easily compare universities with QS rankings</h3>
-        <p>Filter our rankings by region or subject to compare university performance in factors that matter to you including reputation, employability and sustainability.</p>
-        <a href="/rankings" class="qs-btn">Explore Rankings →</a>
-      </div>
-    </div>
+  <div class="info-card">
+    <img src="images/decision.jpg" alt="Make more informed decisions">
+    <h3>Make more informed decisions</h3>
+    <p>Empower your decisions with real-time, predictive student demand data and actionable advice on international strategy development, portfolio management, marketing & recruitment, and more.</p>
   </div>
 </section>
 

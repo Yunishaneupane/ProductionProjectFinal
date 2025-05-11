@@ -7,15 +7,18 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-body{
-    background-color: #c9d6ff;
-    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+body { 
+    background-color: #ffffff;
+    background: linear-gradient(rgba(228, 220, 220, 0.7), rgba(219, 217, 217, 0.7)),
+                url('images/loginuni.jpg') no-repeat center center fixed;
+    background-size: cover; 
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     height: 100vh;
 }
+
 
 .container{
     background-color: #fff;
@@ -47,7 +50,7 @@ body{
 }
 
 .container button{
-    background-color: #512da8;
+    background-color: #540c0c;
     color: #fff;
     font-size: 12px;
     padding: 10px 45px;
@@ -173,7 +176,7 @@ body{
 .toggle{
     background-color: beige;
     height: 100%;
-    background: linear-gradient(to right, #5c6bc0, black);
+    background: linear-gradient(to right, #471212, black);
     color: #fff;
     position: relative;
     left: -100%;

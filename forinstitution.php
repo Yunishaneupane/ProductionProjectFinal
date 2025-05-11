@@ -11,11 +11,15 @@
 
 <?php include 'header.php'; ?>
 
+<section class="picture">
+
+</section>
+
 <!-- FOR INSTITUTIONS SECTION -->
 <section class="institutions-hero">
   <div class="institutions-left">
     <div class="breadcrumb">Home / <span>For institutions</span></div>
-    <h1>Studyportals for<br>Institutions</h1>
+    <h1>EDUPATH for<br>Institutions</h1>
     <p>
       Whether you are getting started with your international journey, looking to grow your student recruitment, diversify or optimise your student population, our solutions, data and expertise help you advance your strategy and realise your ambitions.
     </p>
@@ -34,7 +38,6 @@
     <div class="service-content">
       <h3>Student Recruitment & Marketing</h3>
       <p>Optimise your global recruitment of best-fit students with solutions pointed to your strategic goals.</p>
-      <a href="#">Read more</a>
     </div>
   </div>
 
@@ -43,7 +46,7 @@
     <div class="service-content">
       <h3>Data & Insights</h3>
       <p>Get ahead through data. Our real-time, uniquely comprehensive data provides insights for strategic planning, portfolio development and go-to-market optimisation.</p>
-      <a href="#">Read more</a>
+     
     </div>
   </div>
 
@@ -52,7 +55,16 @@
     <div class="service-content">
       <h3>Consulting</h3>
       <p>Uniting the most predictive data with sector-leading, purposeful consultants, we provide expert guidance on international strategy development, quality management, portfolio management, and benchmarking.</p>
-      <a href="#">Read more</a>
+
+    </div>
+  </div>
+</section>
+
+<section class="contact-hero">
+  <div class="overlay">
+    <div class="hero-text">
+      <h1>"Empowering Students and Institutions, Together."</h1>
+      <p>Edu Path bridges the gap between students seeking the right opportunities and institutions searching for passionate learners</p>
     </div>
   </div>
 </section>

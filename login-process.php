@@ -4,60 +4,46 @@ require 'database.php';
 
 $error = "";
 
+// Check if login credentials are provided
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $email = trim($_POST["email"]);
-  $password = $_POST["password"];
+    $email = trim($_POST["email"]);
+    $password = $_POST["password"];
 
-  $stmt = $conn->prepare("SELECT * FROM Users WHERE email = ?");
-  $stmt->bind_param("s", $email);
-  $stmt->execute();
-  $result = $stmt->get_result();
+    $stmt = $conn->prepare("SELECT * FROM Users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-  if ($result->num_rows === 1) {
-    $user = $result->fetch_assoc();
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
 
-    if (password_verify($password, $user["password"])) {
-      // Store user info in session (nested and flat keys)
-      $_SESSION["user"] = [
-        "id" => $user["user_id"],
-        "name" => $user["name"],
-        "email" => $user["email"],
-        "role" => $user["role"],
-        "university_id" => $user["university_id"] ?? null
-      ];
+        // Verify password
+        if (password_verify($password, $user["password"])) {
+            $_SESSION["user"] = [
+                "id" => $user["user_id"],
+                "name" => $user["name"],
+                "email" => $user["email"],
+                "role" => $user["role"]
+            ];
 
-      // Optional flat keys (for compatibility with older code)
-      $_SESSION["user_id"] = $user["user_id"];
-      $_SESSION["name"] = $user["name"];
-      $_SESSION["role"] = $user["role"];
-      $_SESSION["email"] = $user["email"];
-      $_SESSION["university_id"] = $user["university_id"] ?? null;
-
-      // Redirect based on role
-      switch (strtolower($user["role"])) {
-        case "student":
-          header("Location: home.php");
-          break;
-
-        case "admin":
-          header("Location: Dashboard/index.php");
-          break;
-
-        case "institution":
-          header("Location: institution-dashboard.php");
-          break;
-
-        default:
-          echo "Unknown role. Contact support.";
-          exit;
-      }
+            // Redirect based on role
+            if ($user["role"] === "student") {
+                header("Location: home.php");
+            } else if ($user["role"] === "admin") {
+                header("Location: admin-dashboard.php");
+            } else if ($user["role"] === "institution") {
+                header("Location: institution-dashboard.php");
+            }
+            exit;
+        } else {
+            $error = "Incorrect password!";
+            header("Location: login.php?error=" . urlencode($error)); // Redirect with error
+            exit;
+        }
     } else {
-      header("Location: login.php?error=" . urlencode("Incorrect password."));
+        $error = "User not found!";
+        header("Location: login.php?error=" . urlencode($error)); // Redirect with error
+        exit;
     }
-  } else {
-    header("Location: login.php?error=" . urlencode("User not found. Please register."));
-  }
-
-  exit;
 }
 ?>

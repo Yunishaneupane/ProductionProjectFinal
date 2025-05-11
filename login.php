@@ -55,6 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <!-- Toastify CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+<!-- Toastify JS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
   <link rel="stylesheet" href="login.css"/>
   <title>Signup - EduPath</title>
 </head>
@@ -97,24 +103,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
   </div>
 
   <!-- Log In Form -->
-  <div class="form-container sign-in">
+ <div class="form-container sign-in">
     <form method="POST" action="login-process.php">
       <h1>Log In</h1>
-      <span>or use your email password</span>
+      <span>or use your email and password</span>
+
       <input type="email" name="email" placeholder="Email" required />
       <input type="password" name="password" placeholder="Password" required />
       <a href="#">Forget Your Password?</a>
       <button type="submit">Log In</button>
     </form>
   </div>
-
   <!-- Panel for animation -->
   <div class="toggle-container">
     <div class="toggle">
       <div class="toggle-panel toggle-left">
         <h1>Welcome Back!</h1>
         <p>Enter your personal details to use all of site features</p>
-        <button class="hidden" id="login">Sign In</button>
+        <button class="hidden" id="login">Log In</button>
       </div>
       <div class="toggle-panel toggle-right">
         <h1>Hello, Friend!</h1>
@@ -141,12 +147,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
   });
 
   roleSelect.addEventListener('change', function () {
-    if (this.value === 'admin') {
+    if (this.value === 'institution') {
       universityDropdown.style.display = 'block';
     } else {
       universityDropdown.style.display = 'none';
     }
   });
+  
+  <script>
+    <?php if (isset($_GET['error'])): ?>
+      document.addEventListener("DOMContentLoaded", function () {
+        Toastify({
+          text: "<?= htmlspecialchars($_GET['error']) ?>",
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: "center",
+          backgroundColor: "#ff4d4f",
+        }).showToast();
+      });
+
+  </script>
+<?php endif; ?>
+
 </script>
 </body>
 </html>

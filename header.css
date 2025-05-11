@@ -83,6 +83,72 @@ body {
   text-decoration: none;
   transition: background 0.2s ease;
 }
+/* Modal styles */
+.upload-modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.upload-modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 2rem;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 600px;
+}
+
+.upload-modal-content h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.upload-modal-content input[type="file"] {
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.upload-modal-content button {
+  padding: 0.8rem 2rem;
+  background-color: #0077cc;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.upload-modal-content button:hover {
+  background-color: #005fa3;
+}
+
+.upload-modal .close-btn {
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+}
+
+.upload-modal .close-btn:hover,
+.upload-modal .close-btn:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 
 .dropdown-content a:hover {
   background-color: #222;

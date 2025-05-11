@@ -23,8 +23,9 @@ foreach ($universities as $uni) {
     echo "<a class='programs-btn' href='programs.php?id={$uni['university_id']}'>View Programs</a>";
     echo "    <div class='card-actions'>";
     echo "      <button class='contact-btn'><i class='fas fa-envelope'></i> Contact</button>";
-    echo "      <button class='wishlist-btn'><i class='fas fa-heart'></i> Wishlist</button>";
-    echo "    </div>";
+     echo "     <button class='wishlist-btn'data-name='{$uni['name']}'data-country='{$uni['country']}' data-image='{$uni['image_url']}'<i class='fas fa-heart'></i> Wishlist
+    </button>
+    ";    echo "    </div>";
     echo "  </div>";
     
     echo "</div>";
@@ -32,5 +33,33 @@ foreach ($universities as $uni) {
 }
 ?>
 </div> <!-- Grid wrapper end -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const wishlistButtons = document.querySelectorAll('.wishlist-btn');
 
+    wishlistButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const universityName = this.getAttribute('data-name');
+        const country = this.getAttribute('data-country');
+        const imageUrl = this.getAttribute('data-image');
+
+        // Send the university info via AJAX
+        fetch('add-to-wishlist.php', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `university_name=${encodeURIComponent(universityName)}&country=${encodeURIComponent(country)}&image_url=${encodeURIComponent(imageUrl)}`
+          })
+          .then(response => response.text())
+          .then(data => {
+            alert(data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+      });
+    });
+  });
+</script>
 <?php include 'footer.php'; ?>

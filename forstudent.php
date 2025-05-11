@@ -16,8 +16,8 @@
 <section class="students-hero">
   <div class="students-overlay">
     <div class="students-inner">
-      <div class="students-searchbox">
-        <select id="level">
+<div class="students-searchbox" id="search-box">
+          <select id="level">
           <option disabled selected><b>Study level</b></option>
         </select>
         <select id="destination">
@@ -43,12 +43,12 @@
   <div class="stats-card">
     <div class="stat">
       <img src="images/universitysvg.png" alt="Institution Icon">
-      <h2>3,500+</h2>
+      <h2>10+</h2>
       <p>featured institutions</p>
     </div>
     <div class="stat">
       <img src="images/books.png" alt="Programs Icon">
-      <h2>245,000+</h2>
+      <h2>20+</h2>
       <p>programmes listed globally</p>
     </div>
     <div class="stat">
@@ -119,6 +119,7 @@
 
 
 
+
 <section class="short-courses-section">
   <div class="short-courses-content">
     <p class="highlight">Explore courses</p>
@@ -161,32 +162,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchBtn = document.getElementById("students-search-btn");
 
   // Manually load study levels
-  const studyLevels = ["Bachelor's", "Master's", "PhD"];
-  levelSelect.innerHTML = '<option disabled selected>Select Study Level</option>';
-  studyLevels.forEach(level => {
-    levelSelect.innerHTML += `<option value="${level}">${level}</option>`;
-  });
-
-  // Load destinations dynamically
-  fetch('data.json')
+ // Load levels and destinations from DB
+ fetch('get_filters.php')
     .then(res => res.json())
-    .then(universities => {
-      const countries = [...new Set(universities.map(u => u.country))];
+    .then(data => {
+      // Study levels
+      levelSelect.innerHTML = '<option disabled selected>Select Study Level</option>';
+      data.levels.forEach(level => {
+        levelSelect.innerHTML += `<option value="${level}">${level}</option>`;
+      });
+
+      // Destinations
       destinationSelect.innerHTML = '<option disabled selected>Select Destination</option>';
-      countries.forEach(country => {
+      data.countries.forEach(country => {
         destinationSelect.innerHTML += `<option value="${country}">${country}</option>`;
       });
-    });
 
-  // Load subjects dynamically
-  fetch('fields.json')
-    .then(res => res.json())
-    .then(fields => {
+      // Subjects
       subjectSelect.innerHTML = '<option disabled selected>Select Subject</option>';
-      fields.forEach(field => {
-        subjectSelect.innerHTML += `<option value="${field.name}">${field.name}</option>`;
+      data.fields.forEach(field => {
+        subjectSelect.innerHTML += `<option value="${field}">${field}</option>`;
       });
-    });
+    })
+    .catch(err => console.error("Failed to load filters:", err));
 
   // Handle button click
   searchBtn.addEventListener("click", (e) => {

@@ -56,7 +56,9 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
+  .uni-details{
+    color: black;
+  }
   .bachelor-steps {
     display: flex;
     flex-wrap: wrap;

@@ -1,5 +1,9 @@
 <?php
-session_start();
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $isLoggedIn = isset($_SESSION["user"]);
 $userName = $isLoggedIn ? $_SESSION["user"]["name"] : '';
 ?>
@@ -23,18 +27,12 @@ $userName = $isLoggedIn ? $_SESSION["user"]["name"] : '';
     </a>
 
     <nav class="nav-links">
-      <div class="dropdown">
-        <a href="#">Find Colleges <i class="fa-solid fa-chevron-down dropdown-icon"></i></a>
-        <div class="dropdown-content">
-          <a href="bachelor.php">For Bachelors</a>
-          <a href="masters.php">For Masters</a>
-          <a href="phd.php">For PhD</a>
-        </div>
-      </div>
+    
       <a href="forstudent.php">For Students</a>
       <a href="forinstitution.php">For Institutions</a>
       <a href="aboutus.php">About us</a>
       <a href="contactus.php">Contact us</a>
+      <a href="view_university.php"> View University</a>
     </nav>
 
     <div class="actions">

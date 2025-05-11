@@ -1,206 +1,237 @@
-git remote -v/* === For Institutions Page === */
+/* === For Institutions Page === */
+
+.picture{
+ background: url("images/unifull.jpg") center/cover no-repeat;
+  height: 60vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 .institutions-hero {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4rem 5%;
-    background-color: #f3f4f6;
-    flex-wrap: wrap;
-  }
-  
-  .institutions-left {
-    width: 50%;
-  }
-  
-  .breadcrumb {
-    background: white;
-    display: inline-block;
-    padding: 0.6rem 1.2rem;
-    border-radius: 999px;
-    font-size: 0.9rem;
-    color: #555;
-    margin-bottom: 2rem;
-  }
-  
-  .breadcrumb span {
-    font-weight: 600;
-  }
-  
-  .institutions-left h1 {
-    font-size: 3.2rem;
-    font-weight: 800;
-    margin-bottom: 2rem;
-  }
-  
-  .institutions-left p {
-    font-size: 1.1rem;
-    color: #444;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-  
-  .cta-btn {
-    display: inline-block;
-    padding: 0.9rem 1.5rem;
-    background-color: #0044d4;
-    color: white;
-    font-weight: 600;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: background 0.3s ease;
-  }
-  
-  .cta-btn:hover {
-    background-color: #0032a4;
-  }
-  
-  .institutions-right {
-    width: 45%;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .institutions-right img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 0;
-  }
-  
-  .ribbon-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-  }
-  
-  .ribbon {
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    transform: rotate(-45deg);
-    opacity: 0.5;
-  }
-  
-  .ribbon.red {
-    background: linear-gradient(to right, #ff5e3a, #ff9a3a);
-    top: -50%;
-    left: -60%;
-  }
-  
-  .ribbon.blue {
-    background: linear-gradient(to right, #0056d2, #4facfe);
-    top: -20%;
-    left: -40%;
-  }
-  
-  /* === Responsive === */
-  @media (max-width: 768px) {
-    .institutions-hero {
-      flex-direction: column;
-      text-align: center;
-    }
-  
-    .institutions-left,
-    .institutions-right {
-      width: 100%;
-    }
-  
-    .institutions-left h1 {
-      font-size: 2.2rem;
-      color: black;
-    }
-  
-    .institutions-left p {
-      font-size: 1rem;
-    }
-  
-    .breadcrumb {
-      margin: 0 auto 2rem;
-    }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 5%;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.institutions-left {
+  flex: 1;
+  min-width: 300px;
+  color: black;
+}
+
+.breadcrumb {
+  background: #fff;
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.breadcrumb span {
+  font-weight: 600;
+}
+
+.institutions-left h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+.institutions-left p {
+  font-size: 1.1rem;
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.cta-btn {
+  display: inline-block;
+  padding: 0.9rem 1.5rem;
+  background-color: #511111;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.cta-btn:hover {
+  background-color: #9e5656;
+}
+
+.institutions-right {
+  flex: 1;
+  min-width: 300px;
+}
+
+.institutions-right img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* === Institution Services Section === */
+
+.institution-services {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 4rem 5%;
+  background: #ffffff;
+}
+
+.service-card {
+  background: #f3f4f6;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  flex: 1 1 calc(33% - 2rem);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 280px;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.service-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.service-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+}
+
+.service-content h3 {
+  font-size: 1.3rem;
+  color: #670b0b;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.service-content p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 1.2rem;
+}
+
+.service-content a {
+  color: #000000;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.service-content a:hover {
+  color: #002a85;
+}
+
+.service-card.highlighted {
+  background-color: #ffffff;
+  color: white;
+}
+
+.service-card.highlighted h3,
+.service-card.highlighted a {
+  color: #000000;
+}s
+
+.service-card.highlighted p {
+  color: #e0e0e0;
+}
+
+/* === Responsive Adjustments === */
+@media (max-width: 768px) {
+  .institutions-hero {
+    flex-direction: column;
+    text-align: center;
   }
 
-  /* === Institution Services Section === */
-.institution-services {
-    display: flex;
-    gap: 2rem;
-    padding: 4rem 5%;
-    background: #fff;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .service-card {
-    background: #f3f4f6;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-    flex: 1 1 30%;
-    min-width: 280px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
-  }
-  
-  .service-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .service-card img {
+  .institutions-left,
+  .institutions-right {
     width: 100%;
-    height: 200px;
-    object-fit: cover;
   }
-  
-  .service-content {
-    padding: 1.5rem;
+
+  .institutions-left h1 {
+    font-size: 2.2rem;
   }
-  
-  .service-content h3 {
-    color: #0044d4;
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  
-  .service-content p {
+
+  .institutions-left p {
     font-size: 1rem;
-    color: #444;
-    margin-bottom: 1.2rem;
-    line-height: 1.6;
   }
-  
-  .service-content a {
-    color: #0044d4;
-    font-weight: 500;
-    text-decoration: none;
+
+  .institution-services {
+    flex-direction: column;
+    padding: 2rem 1.5rem;
   }
-  
-  .service-card.highlighted {
-    background-color: #0056d2;
-    color: white;
+
+  .service-card {
+    flex: 1 1 100%;
   }
+}
+
+.contact-hero {
+  background: url("images/meeting.jpg") center/cover no-repeat;
+  height: 70vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
-  .service-card.highlighted h3,
-  .service-card.highlighted a {
-    color: #ffffff;
-  }
-  
-  .service-card.highlighted p {
-    color: #e6e6e6;
-  }
-  
-  /* Responsive */
-  @media (max-width: 768px) {
-    .institution-services {
-      flex-direction: column;
-    }
-  
-    .service-card {
-      width: 100%;
-    }
-  }
-  
-  
+}
+.hero-text {
+  text-align: center;
+  color: white;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-text h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-family: 'Inter', sans-serif;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+}
+
+.hero-text p {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.6;
+  font-family: 'Inter', sans-serif;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.contact-hero::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* dim shade */
+  z-index: 1;
+}
+.contact-hero > * {
+  position: relative;
+  z-index: 2;
+}

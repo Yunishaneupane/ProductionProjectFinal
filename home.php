@@ -55,7 +55,7 @@
     <a href="forstudent.php" class="edu-btn">Watch What Happens ▸</a>
   </div>
   <div class="edu-image">
-    <img src="images/gouni.jpg" alt="Students walking">
+    <img src="images/homestd.jpg" alt="Students walking">
   </div>
 </section>
 
@@ -128,9 +128,6 @@
       </div>
     </div>
   </div>
-  <div class="see-all">
-    <a href="#">See all countries <span class="arrow"> > </span></a>
-  </div>
 </section>
 
 
@@ -141,6 +138,7 @@
   <div class="breathe-left">
 
   <video src="images/relax.mp4"
+   poster="images/thumbnail.png"
        playsinline
        controls
        class="tiny-video">
@@ -238,7 +236,7 @@
         We are excited to welcome you and your family for a campus tour. Led by a current EduPath student, 
         learn more about what makes our lakeside campus truly unique.
       </p>
-      <a href="campusvisit.php" class="visit-button">PLAN YOUR VISIT</a>
+      <a href="forstudent.php" class="visit-button">PLAN YOUR VISIT</a>
     </div>
   </div>
 </section>
