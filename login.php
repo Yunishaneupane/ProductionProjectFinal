@@ -154,7 +154,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
     }
   });
   
-  <script>
     <?php if (isset($_GET['error'])): ?>
       document.addEventListener("DOMContentLoaded", function () {
         Toastify({
@@ -167,8 +166,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
         }).showToast();
       });
 
-  </script>
+
 <?php endif; ?>
+// Auto-switch to signup or login based on URL
+document.addEventListener("DOMContentLoaded", function () {
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get("mode");
+
+  if (mode === "signup") {
+    container.classList.add("active");
+  } else {
+    container.classList.remove("active");
+  }
+});
+
 
 </script>
 </body>

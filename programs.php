@@ -1,20 +1,49 @@
 <?php
-$universities = json_decode(file_get_contents("data.json"), true);
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+require 'database.php';
+
+// Get university ID from URL
 $universityId = isset($_GET['id']) ? intval($_GET['id']) : 0;
-
-$selectedUniversity = null;
-foreach ($universities as $uni) {
-  if ($uni['university_id'] === $universityId) {
-    $selectedUniversity = $uni;
-    break;
-  }
+if (!$universityId) {
+    echo "<h2 style='text-align:center; padding: 3rem;'>Invalid university ID.</h2>";
+    exit;
 }
 
-if (!$selectedUniversity) {
-  echo "<h2 style='text-align:center; padding: 3rem;'>University not found.</h2>";
-  exit;
+// Fetch university with category info using JOIN
+// Fetch university info
+$stmt = $conn->prepare("SELECT * FROM universities WHERE university_id = ?");
+$stmt->bind_param("i", $universityId);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows === 0) {
+    echo "<h2 style='text-align:center; padding: 3rem;'>University not found.</h2>";
+    exit;
 }
+
+$selectedUniversity = $result->fetch_assoc();
+$stmt->close();
+
+// Parse category_id string into array
+$categoryIds = array_filter(array_map('intval', explode(',', $selectedUniversity['category_id'] ?? '')));
+
+// Fetch all matching categories
+$categories = [];
+if (!empty($categoryIds)) {
+    $placeholders = implode(',', array_fill(0, count($categoryIds), '?'));
+    $catStmt = $conn->prepare("SELECT * FROM category WHERE category_id IN ($placeholders)");
+    $catStmt->bind_param(str_repeat('i', count($categoryIds)), ...$categoryIds);
+    $catStmt->execute();
+    $catResult = $catStmt->get_result();
+    $categories = $catResult->fetch_all(MYSQLI_ASSOC);
+    $catStmt->close();
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -134,30 +163,39 @@ if (!$selectedUniversity) {
   <?php include 'header.php'; ?>
 
   <section class="program-hero">
-    <h1><?php echo $selectedUniversity['name']; ?></h1>
-    <p>Explore program offerings and details</p>
-  </section>
+  <h1><?= htmlspecialchars($selectedUniversity['name']) ?></h1>
+  <p>Explore program offerings and details</p>
+</section>
 
-  <div class="uni-details">
-    <img src="<?php echo $selectedUniversity['image_url']; ?>" alt="Logo">
-    <h2><?php echo $selectedUniversity['name']; ?></h2>
-    <p><strong>Country:</strong> <?php echo $selectedUniversity['country']; ?> |
-      <strong>Ranking:</strong> #<?php echo $selectedUniversity['ranking']; ?>
-    </p>
-    <p style="margin-top: 1rem;"><?php echo $selectedUniversity['details']; ?></p>
+<div class="uni-details">
+  <img src="<?= htmlspecialchars($selectedUniversity['image_url']) ?>" alt="Logo">
+  <h2><?= htmlspecialchars($selectedUniversity['name']) ?></h2>
+  <p><strong>Country:</strong> <?= htmlspecialchars($selectedUniversity['country']) ?> |
+     <strong>Ranking:</strong> #<?= htmlspecialchars($selectedUniversity['ranking']) ?>
+  </p>
+  <p style="margin-top: 1rem;"><?= nl2br(htmlspecialchars($selectedUniversity['description'])) ?></p>
+</div>
+
+<section class="program-category">
+  <div class="category-card">
+    <h2>Program Categories</h2>
+    <?php if (!empty($categories)): ?>
+      <?php foreach ($categories as $cat): ?>
+        <h3><?= htmlspecialchars($cat['name']) ?></h3>
+        <p><?= htmlspecialchars($cat['description']) ?></p>
+        <hr style="margin: 1rem 0;">
+      <?php endforeach; ?>
+    <?php else: ?>
+      <p>No categories assigned to this university.</p>
+    <?php endif; ?>
   </div>
+</section>
 
-  <section class="program-category">
-    <div class="category-card">
-      <h2>Program Category</h2>
-      <h3><?php echo $selectedUniversity['category']['name']; ?></h3>
-      <p><?php echo $selectedUniversity['category']['description']; ?></p>
-    </div>
-  </section>
 
-  <div style="text-align:center;">
-    <a class="back-btn" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Back</a>
-  </div>
+<div style="text-align:center;">
+  <a class="back-btn" href="javascript:history.back()">← Back</a>
+</div>
+
 
   <?php include 'footer.php'; ?>
 </body>

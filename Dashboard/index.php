@@ -312,7 +312,8 @@ if ($row = $prog_result->fetch_assoc()) {
         <div class="card-grid">
           <div class="card"><?= $programCount ?> Active Programs</div>
           <div class="card">3 Pending Reviews</div>
-          <div class="card">Edit Profile</div>
+          <a href="edit-profile.php" class="card">Edit Profile</a>
+
         </div>
 
       <?php elseif ($view == 'programs'): ?>

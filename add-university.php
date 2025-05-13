@@ -2,7 +2,7 @@
 session_start();
 require 'database.php';
 
-// Optional: Restrict access to admin only
+// Restrict access to admin only
 if (!isset($_SESSION["user"]) || $_SESSION["user"]["role"] !== 'admin') {
     echo "Access denied.";
     exit;
@@ -11,21 +11,29 @@ if (!isset($_SESSION["user"]) || $_SESSION["user"]["role"] !== 'admin') {
 $success = "";
 $error = "";
 
+// Fetch all categories for the dropdown
+$catResult = $conn->query("SELECT * FROM category");
+$allCategories = [];
+while ($row = $catResult->fetch_assoc()) {
+    $allCategories[] = $row;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
     $country = trim($_POST['country']);
     $imageUrl = trim($_POST['image_url']);
     $ranking = isset($_POST['ranking']) ? intval($_POST['ranking']) : null;
     $description = isset($_POST['description']) ? trim($_POST['description']) : '';
+    $categoryIds = isset($_POST['category_ids']) ? implode(',', $_POST['category_ids']) : '';
 
     if ($name && $country && $imageUrl && $description) {
-        $query = "INSERT INTO universities (name, country, image_url, ranking, description) VALUES (?, ?, ?, ?, ?)";
+        $query = "INSERT INTO universities (name, country, image_url, ranking, description, category_id) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($query);
 
         if (!$stmt) {
             $error = "❌ Prepare failed: " . $conn->error;
         } else {
-            $stmt->bind_param("sssds", $name, $country, $imageUrl, $ranking, $description);
+            $stmt->bind_param("sssiss", $name, $country, $imageUrl, $ranking, $description, $categoryIds);
 
             if ($stmt->execute()) {
                 $university_id = $conn->insert_id;
@@ -73,7 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border: 1px solid #ccc;
             padding: 10px;
             border-radius: 5px;
-            
         }
         .program-block input {
             display: block;
@@ -117,6 +124,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <label>Description:</label>
             <textarea name="description" rows="5" required></textarea>
+
+            <label>Select Categories:</label>
+            <select name="category_ids[]" multiple required>
+                <?php foreach ($allCategories as $cat): ?>
+                    <option value="<?= $cat['category_id'] ?>"><?= htmlspecialchars($cat['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
+            <small>Hold Ctrl (Windows) or Cmd (Mac) to select multiple categories</small>
 
             <h3>Programs Offered</h3>
             <div id="programs-container">

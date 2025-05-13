@@ -1,7 +1,7 @@
 <?php
 
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 
 $isLoggedIn = isset($_SESSION["user"]);
@@ -11,6 +11,7 @@ $userName = $isLoggedIn ? $_SESSION["user"]["name"] : '';
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -27,7 +28,7 @@ $userName = $isLoggedIn ? $_SESSION["user"]["name"] : '';
     </a>
 
     <nav class="nav-links">
-    
+
       <a href="forstudent.php">For Students</a>
       <a href="forinstitution.php">For Institutions</a>
       <a href="aboutus.php">About us</a>
@@ -40,9 +41,10 @@ $userName = $isLoggedIn ? $_SESSION["user"]["name"] : '';
         <div class="welcome-msg">👋 Welcome, <?= htmlspecialchars($userName) ?></div>
         <button class="logout-btn" onclick="window.location.href='logout.php'">Logout</button>
       <?php else: ?>
-        <button class="login-btn" onclick="window.location.href='login.php'">Login</button>
-        <button class="signup-btn" onclick="window.location.href='login.php'">Signup</button>
+        <button class="login-btn" onclick="window.location.href='login.php?mode=login'">Login</button>
+        <button class="signup-btn" onclick="window.location.href='login.php?mode=signup'">Signup</button>
       <?php endif; ?>
+
 
       <div class="wishlist" onclick="toggleWishlist()">
         <i class="fas fa-heart"></i>
@@ -52,35 +54,35 @@ $userName = $isLoggedIn ? $_SESSION["user"]["name"] : '';
 
   <!-- Wishlist Panel -->
   <div id="wishlistPanel" class="wishlist-panel">
-  <div class="wishlist-header">
-    <h2>Wishlist</h2>
-    <button class="wishlist-close" onclick="toggleWishlist()">✕</button>
+    <div class="wishlist-header">
+      <h2>Wishlist</h2>
+      <button class="wishlist-close" onclick="toggleWishlist()">✕</button>
+    </div>
+
+    <div class="wishlist-content" id="wishlistContent">
+      <p>Loading wishlist...</p>
+    </div>
+
   </div>
 
-<div class="wishlist-content" id="wishlistContent">
-  <p>Loading wishlist...</p>
-</div>
-
-</div>
-
   <script>
- function toggleWishlist() {
-  const panel = document.getElementById("wishlistPanel");
-  panel.classList.toggle("open");
+    function toggleWishlist() {
+      const panel = document.getElementById("wishlistPanel");
+      panel.classList.toggle("open");
 
-  // Fetch updated wishlist when opening
-  if (panel.classList.contains("open")) {
-    fetch('wishlist_fetch.php')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("wishlistContent").innerHTML = html;
-      })
-      .catch(err => {
-        document.getElementById("wishlistContent").innerHTML = "<p>Error loading wishlist.</p>";
-        console.error(err);
-      });
-  }
-}
+      // Fetch updated wishlist when opening
+      if (panel.classList.contains("open")) {
+        fetch('wishlist_fetch.php')
+          .then(res => res.text())
+          .then(html => {
+            document.getElementById("wishlistContent").innerHTML = html;
+          })
+          .catch(err => {
+            document.getElementById("wishlistContent").innerHTML = "<p>Error loading wishlist.</p>";
+            console.error(err);
+          });
+      }
+    }
 
     window.addEventListener("scroll", () => {
       const header = document.querySelector(".header");
@@ -88,62 +90,63 @@ $userName = $isLoggedIn ? $_SESSION["user"]["name"] : '';
     });
   </script>
 </body>
+
 </html>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const wishlistButtons = document.querySelectorAll('.wishlist-btn');
+  document.addEventListener('DOMContentLoaded', function () {
+    const wishlistButtons = document.querySelectorAll('.wishlist-btn');
 
-  wishlistButtons.forEach(button => {
-    button.addEventListener('click', function () {
-      const universityName = this.getAttribute('data-name');
-      const country = this.getAttribute('data-country');
-      const imageUrl = this.getAttribute('data-image');
+    wishlistButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const universityName = this.getAttribute('data-name');
+        const country = this.getAttribute('data-country');
+        const imageUrl = this.getAttribute('data-image');
 
-      fetch('add_to_wishlist.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `university_name=${encodeURIComponent(universityName)}&country=${encodeURIComponent(country)}&image_url=${encodeURIComponent(imageUrl)}`
-      })
-      .then(response => response.text())
-      .then(data => {
-        console.log(data); // for debug
+        fetch('add_to_wishlist.php', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: `university_name=${encodeURIComponent(universityName)}&country=${encodeURIComponent(country)}&image_url=${encodeURIComponent(imageUrl)}`
+        })
+          .then(response => response.text())
+          .then(data => {
+            console.log(data); // for debug
 
-       
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Error adding to wishlist');
+
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Error adding to wishlist');
+          });
       });
     });
   });
-});
-document.addEventListener("click", function (e) {
-  if (e.target.classList.contains("remove-wishlist-btn")) {
-    const id = e.target.getAttribute("data-id");
+  document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("remove-wishlist-btn")) {
+      const id = e.target.getAttribute("data-id");
 
-    fetch('remove_from_wishlist.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `id=${encodeURIComponent(id)}`
-    })
-    .then(response => response.text())
-    .then(data => {
-      console.log("Remove response:", data);
-      // Reload wishlist
-      fetch('wishlist_fetch.php')
-        .then(res => res.text())
-        .then(html => {
-          document.getElementById("wishlistContent").innerHTML = html;
+      fetch('remove_from_wishlist.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `id=${encodeURIComponent(id)}`
+      })
+        .then(response => response.text())
+        .then(data => {
+          console.log("Remove response:", data);
+          // Reload wishlist
+          fetch('wishlist_fetch.php')
+            .then(res => res.text())
+            .then(html => {
+              document.getElementById("wishlistContent").innerHTML = html;
+            });
+        })
+        .catch(err => {
+          alert("Failed to remove item");
+          console.error(err);
         });
-    })
-    .catch(err => {
-      alert("Failed to remove item");
-      console.error(err);
-    });
-  }
-});
+    }
+  });
 
 </script>

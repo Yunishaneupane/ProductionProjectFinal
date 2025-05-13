@@ -1,38 +1,30 @@
 <?php
 require 'database.php';
 
-header('Content-Type: application/json');
+$response = [
+  "levels" => [],
+  "countries" => [],
+  "fields" => []
+];
 
-// Fetch study levels from category table
-$levels = [];
-$levelQuery = "SELECT name FROM category";
-$levelResult = $conn->query($levelQuery);
+// Study levels from category table
+$levelResult = $conn->query("SELECT DISTINCT name FROM category");
 while ($row = $levelResult->fetch_assoc()) {
-    $levels[] = $row['name'];
+  $response['levels'][] = $row['name'];
 }
 
-// Fetch unique countries from universities table
-$countries = [];
-$countryQuery = "SELECT DISTINCT country FROM universities";
-$countryResult = $conn->query($countryQuery);
+// Countries from universities table
+$countryResult = $conn->query("SELECT DISTINCT country FROM universities");
 while ($row = $countryResult->fetch_assoc()) {
-    $countries[] = $row['country'];
+  $response['countries'][] = $row['country'];
 }
 
-// Fetch unique countries from universities table
-$fields = [];
-$fieldQuery = "SELECT DISTINCT program_name FROM programs";
-$fieldResult = $conn->query($fieldQuery);
+// Subjects (programs) from programs table
+$fieldResult = $conn->query("SELECT DISTINCT program_name FROM programs");
 while ($row = $fieldResult->fetch_assoc()) {
-    $fields[] = $row['program_name'];
+  $response['fields'][] = $row['program_name'];
 }
 
-
-
-// Return both as JSON
-echo json_encode([
-    'levels' => $levels,
-    'countries' => $countries,
-    'fields'=>$fields
-]);
+header('Content-Type: application/json');
+echo json_encode($response);
 ?>

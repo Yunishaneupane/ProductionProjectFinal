@@ -35,7 +35,7 @@
     Your journey begins here - Stay informed with the latest admission notices and updates
   </p>
   <h1 class="admission-title">
-    Admission - Gateway to Academic Excellence
+    Explore - Gateway to Academic Excellence
   </h1>
   <a href="forstudent.php">
     <button class="explore-btn">Explore</button>
@@ -52,42 +52,13 @@
     <p class="edu-desc">
       EduPath redefines how students discover their ideal university. From smart search filters to personalized recommendations powered by data, we make it easier than ever to compare programs, explore campuses, and find your perfect academic match—all in one place.
     </p>
-    <a href="forstudent.php" class="edu-btn">Watch What Happens ▸</a>
+    <a href="forstudent.php" class="edu-btn"> See Universities ▸</a>
   </div>
   <div class="edu-image">
     <img src="images/homestd.jpg" alt="Students walking">
   </div>
 </section>
 
-
-
-<!-- QS SUPPORT SECTION -->
-<section class="qs-support-section">
-  <h2>How EduPath can support you</h2>
-  <p class="qs-subheading">
-    We're here to support you through all stages of the university journey; whether it's researching institutions, navigating admissions or submitting your application.
-  </p>
-
-  <div class="qs-timeline">
-    <div class="qs-entry">
-      <img src="images/enroll-1.png" alt="Student with laptop" />
-      <div class="qs-content">
-        <h3>Find the right course for you</h3>
-        <p>Our course matching tool features thousands of programmes and uses your personal study preferences to find the right course for you.</p>
-        <a href="/find-course" class="qs-btn">Find Your Course →</a>
-      </div>
-    </div>
-
-    <div class="qs-entry reverse">
-      <img src="images/enroll-2.png" alt="Jumping over world map" />
-      <div class="qs-content">
-        <h3>Need more advice on where to study?</h3>
-        <p>Learn more about student experiences at universities in the world’s most incredible cities and get advice on visas, finding accommodation and fun things to do once you’ve arrived.</p>
-        <a href="/rankings" class="qs-btn">Explore Universities →</a>
-      </div>
-    </div>
-  </div>
-</section>
 
 
 <!-- ---------------------------------- -->
@@ -231,7 +202,7 @@
   <div class="visit-campus-overlay">
     <div class="visit-campus-content">
       <p class="visit-subtitle">YOUR STORY STARTS HERE</p>
-      <h2 class="visit-heading">Visit Campus</h2>
+      <h2 class="visit-heading">Visit Edu Path</h2>
       <p class="visit-description">
         We are excited to welcome you and your family for a campus tour. Led by a current EduPath student, 
         learn more about what makes our lakeside campus truly unique.

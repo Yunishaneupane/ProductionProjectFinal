@@ -110,96 +110,6 @@ header.header {
 }
 
   
-/* === QS SUPPORT === */ 
-.qs-support-section {
-  padding: 4rem 5%;
-  background-color:#F0EEEE;
-  text-align: center;
-}
-
-.qs-support-section h2 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  color: #111;
-  font-family: 'Georgia', serif; 
-}
-
-.qs-subheading {
-  max-width: 700px;
-  margin: 0 auto 3rem;
-  color: #4b3a3a;
-  font-family: 'Georgia', serif; 
-}
-
-.qs-timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 4rem;
-}
-
-.qs-entry {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 2rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.qs-entry:hover {
-  transform: scale(1.02);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.qs-entry.reverse {
-  flex-direction: row-reverse;
-}
-
-.qs-entry img {
-  width: 300px;
-  max-width: 100%;
-  border-radius: 10px;
-}
-
-.qs-content {
-  flex: 1;
-  /* background-color: #000000; */
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 16px 16px rgb(247, 247, 247);
-  text-align: left;
-  transition: background-color 0.3s ease;
-  font-family: 'Georgia', serif; 
-}
-.qs-content p {
-  color: #000;
-  font-family: 'Georgia', serif; 
-}
-
-.qs-content h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  color: black;
-  font-family: 'Georgia', serif; 
-}
-
-.qs-btn {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.8rem 1.5rem;
-  background-color: #7d1f1f;
-  color: white;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 6px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-
-.qs-btn:hover {
-  background-color: #000000;
-  color: #ffffff;
-}
 
 /* ------------------------------------------------------------- */
 .admission-section {
@@ -657,6 +567,7 @@ header.header {
 /* ------------------------------------------------------------- */
 
 .discover-section {
+  padding-top: 1rem;
   text-align: center;
   padding: 2rem;
   background-color: #faf8ff;

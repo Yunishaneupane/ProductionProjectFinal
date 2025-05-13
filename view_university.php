@@ -1,77 +1,81 @@
 <?php
-session_start();
-require 'database.php';
-
-// Check if the user is logged in
-$isLoggedIn = isset($_SESSION['user']);
-
-// Fetch all universities from the database
-$university = null;
-
-$stmt = $conn->prepare("SELECT * FROM universities");
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Check if universities exist
-if ($result->num_rows > 0) {
-    $universities = [];
-    while ($row = $result->fetch_assoc()) {
-        $universities[] = $row;
-    }
-} else {
-    die("Error: No universities found.");
-}
-
-$stmt->close();
-?>
-
-<?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-} 
+}
+
+require 'database.php';
+require 'vendor/autoload.php'; // Load PDF parser
+use Smalot\PdfParser\Parser;
+
+$isLoggedIn = isset($_SESSION['user']);
+
+
+
 $recommendations = [];
 $error = "";
 $transcriptUploaded = false;
 
+// Fetch all universities (for regular listing)
+$universities = [];
+$universityStmt = $conn->prepare("SELECT * FROM universities");
+$universityStmt->execute();
+$universityResult = $universityStmt->get_result();
+if ($universityResult->num_rows > 0) {
+    while ($row = $universityResult->fetch_assoc()) {
+        $universities[] = $row;
+    }
+}
+$universityStmt->close();
 
-// Handle transcript upload
-  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['transcript']) && $_FILES['transcript']['error'] === UPLOAD_ERR_OK) {
-      $uploadDir = "uploads/";
-      if (!is_dir($uploadDir)) mkdir($uploadDir);
+// ✅ Handle Transcript Upload
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['transcript']) && $_FILES['transcript']['error'] === UPLOAD_ERR_OK) {
+    $uploadDir = "uploads/";
+    if (!is_dir($uploadDir)) mkdir($uploadDir);
 
-      $fileName = "transcript_" . time() . "_" . basename($_FILES["transcript"]["name"]);
-      $targetFile = $uploadDir . $fileName;
+    $fileName = "transcript_" . time() . "_" . basename($_FILES["transcript"]["name"]);
+    $targetFile = $uploadDir . $fileName;
 
-      if (move_uploaded_file($_FILES["transcript"]["tmp_name"], $targetFile)) {
-          // Simulate extraction
-          $_SESSION['cgpa'] = 3.5;
-          $_SESSION['major'] = "Computer Science";
-          $_SESSION['transcript_uploaded'] = true;
+    if (move_uploaded_file($_FILES["transcript"]["tmp_name"], $targetFile)) {
+        $parser = new Parser();
+        $pdf = $parser->parseFile($targetFile);
+        $text = $pdf->getText();
 
-          header("Location: " . $_SERVER['PHP_SELF']);
-          exit;
-      } else {
-          $error = "❌ Failed to upload transcript.";
-      }
-  }
+        $cgpaExtracted = null;
 
-// ✅ Now process recommendations *after redirect* (this should come after the upload block)
-if (isset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'], $_SESSION['major'])) {
-  $transcriptUploaded = true; // ✅ Set this flag
-  $cgpa = $_SESSION['cgpa'];
-  $major = $_SESSION['major'];
+        // ✅ Match CGPA or Cumulative GPA (case-insensitive)
+        if (preg_match('/(Cumulative GPA|CGPA)\s*[:=]?\s*([0-9]+(?:\.[0-9]+)?)/i', $text, $matches)) {
+            $cgpaExtracted = (float)$matches[2];
+        }
 
-  $universityData = json_decode(file_get_contents("data.json"), true);
-  foreach ($universityData as $uni) {
-      if (isset($uni['min_cgpa'], $uni['majors']) && $cgpa >= $uni['min_cgpa'] && in_array($major, $uni['majors'])) {
-          $recommendations[] = $uni;
-      }
-  }
+        $_SESSION['transcript_uploaded'] = true;
 
-  unset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'], $_SESSION['major']);
+        if ($cgpaExtracted === null) {
+            $error = "❌ Invalid PDF: CGPA not found.";
+        } else {
+            $_SESSION['cgpa'] = $cgpaExtracted;
+            header("Location: " . $_SERVER['PHP_SELF']);
+            exit;
+        }
+    } else {
+        $error = "❌ Failed to upload transcript.";
+    }
 }
 
+// ✅ After Redirect: Filter Recommendations
+if (isset($_SESSION['transcript_uploaded'], $_SESSION['cgpa'])) {
+    $transcriptUploaded = true;
+    $cgpa = $_SESSION['cgpa'];
+
+    $stmt = $conn->prepare("SELECT * FROM universities WHERE min_cgpa <= ?");
+    $stmt->bind_param("d", $cgpa);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $recommendations = $result->fetch_all(MYSQLI_ASSOC);
+
+    unset($_SESSION['transcript_uploaded'], $_SESSION['cgpa']);
+}
 ?>
+
 
 
 
@@ -197,11 +201,18 @@ include 'header.php';
   <h2>Get Personalized University Recommendations</h2>
   <p>Upload your academic transcript and we'll suggest universities that match your profile.</p>
 
+ <?php if ($isLoggedIn): ?>
   <form method="POST" enctype="multipart/form-data" class="transcript-form">
     <input type="file" id="transcript" name="transcript" accept=".pdf,.jpg,.png" required>
     <span id="file-name">No file selected</span>
     <button type="submit" name="analyze">Upload Transcript</button>
   </form>
+<?php else: ?>
+  <p style="color: red; font-weight: bold; font-size: 1.1rem;">
+    Please <a href="login.php">log in</a> to upload your transcript and receive personalized recommendations.
+  </p>
+<?php endif; ?>
+
 
   <?php if (!empty($error)) echo "<p style='color:red; text-align:center;'>$error</p>"; ?>
 </section>
@@ -216,17 +227,16 @@ include 'header.php';
           <img src="<?= htmlspecialchars($uni['image_url']) ?>" alt="<?= htmlspecialchars($uni['name']) ?>" style="width: 100%; height: 160px; object-fit: cover; border-radius: 10px 10px 0 0;">
           <h4 style="color:#000000; margin-top:10px;"><?= htmlspecialchars($uni['name']) ?></h4>
           <p><strong>Country:</strong> <?= htmlspecialchars($uni['country']) ?></p>
-          <p><strong>Min CGPA:</strong> <?= $uni['min_cgpa'] ?></p>
-          <p><strong>Majors:</strong> <?= implode(', ', $uni['majors']) ?></p>
-          <a class="programs-btn" href="programs.php?id=<?= $uni['university_id'] ?>">View Programs</a>
-
-         </div>
+          <p><strong>Min CGPA Required:</strong> <?= htmlspecialchars($uni['min_cgpa']) ?></p>
+          <a class="programs-btn" href="programs.php?id=<?= urlencode($uni['university_id']) ?>" style="display: inline-block; margin-top: 10px; padding: 8px 12px; background-color: #007bff; color: #fff; border-radius: 5px; text-decoration: none;">View Programs</a>
+        </div>
       <?php endforeach; ?>
     </div>
   </section>
 <?php elseif ($transcriptUploaded && empty($recommendations)): ?>
   <p style="text-align: center; color: #b00; margin-top: 1rem;">❌ No matching universities found for your transcript.</p>
 <?php endif; ?>
+
 <section class="universities-info">
     <h1>Universities</h1>
     <div class="universities-list">
